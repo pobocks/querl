@@ -1,6 +1,6 @@
 class SurveyItem < ActiveRecord::Base
-  
-  has_and_belongs_to_many :surveys
+  has_many :survey_items_surveys
+  has_many :surveys, :through => :survey_items_surveys
   has_many :responses
   belongs_to :project
   

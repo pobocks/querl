@@ -1,4 +1,4 @@
-class SurveyItemsSurveys < ActiveRecord::Base
+class SurveyItemsSurvey < ActiveRecord::Base
   
   belongs_to :survey_item
   belongs_to :survey

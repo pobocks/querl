@@ -52,12 +52,12 @@ class SurveysController < ApplicationController
   def update
     @survey = Survey.find(params[:id])
     unless params[:survey][:survey_item_ids].nil?
-      all_items = SurveyItemsSurveys.all(:conditions => {:survey_id => @survey.id})
+      all_items = SurveyItemsSurvey.all(:conditions => {:survey_id => @survey.id})
     end
     respond_to do |format|
       if @survey.update_attributes(params[:survey])
         unless params[:survey][:survey_item_ids].nil?
-          nil_items = SurveyItemsSurveys.all(:conditions => {:survey_id => @survey.id, :position => nil})
+          nil_items = SurveyItemsSurvey.all(:conditions => {:survey_id => @survey.id, :position => nil})
           i = 0
           if all_items.last.nil? || all_items.last.position.nil?
             pos = 1
@@ -165,7 +165,7 @@ class SurveysController < ApplicationController
   
   def move
     survey = Survey.find(params[:survey_id])
-    survey_items_surveys_item = SurveyItemsSurveys.first(:conditions => {:survey_id => survey.id, :survey_item_id => params[:survey_item_id]})
+    survey_items_surveys_item = SurveyItemsSurvey.first(:conditions => {:survey_id => survey.id, :survey_item_id => params[:survey_item_id]})
     if ["move_higher", "move_lower", "move_to_top", "move_to_bottom", "remove_from_list"].include?(params[:method]) and !survey_items_surveys_item.nil?
       survey_items_surveys_item.send(params[:method])
       if params[:method] == "remove_from_list"

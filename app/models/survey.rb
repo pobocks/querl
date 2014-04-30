@@ -1,6 +1,7 @@
 class Survey < ActiveRecord::Base
   belongs_to :project
-  has_and_belongs_to_many :survey_items, -> { order('survey_items_surveys.position') }
+  has_many :survey_items_surveys
+  has_many :survey_items, -> { order('survey_items_surveys.position') }, :through => :survey_items_surveys
   has_many :responses
   belongs_to :target_list
   has_many :target_pools, -> { order('target_id') }
